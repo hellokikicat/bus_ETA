@@ -20,14 +20,13 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.ensemble import RandomForestRegressor
 from scipy import stats
 
-pwd = '/Users/Amber/Dropbox/[Homework]/bus/new/'
-pwd = 'C:/Users/Z/Dropbox/Homework/bus/new/'
+pwd = '../data'
 
 # Load cleaned data
-df0 = pd.read_csv(pwd+'data9.csv')
+df0 = pd.read_csv(pwd+'cleaned/data9.csv')
 df0['DateTime'] = pd.to_datetime(df0['DateTime'])
 
-df1 = pd.read_csv(pwd+'dataNew-1.csv')
+df1 = pd.read_csv(pwd+'cleaned/dataNew-1.csv')
 df1['DateTime'] = pd.to_datetime(df1['DateTime'])
 
 df = pd.concat([df0.iloc[:,:-5], df1], axis=0)
