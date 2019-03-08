@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
 pwd = '../data'
-dfAll = pd.read_csv(pwd+'RapidData_Arrival_201705.csv')
+dfAll = pd.read_csv(pwd+'raw/RapidData_Arrival_201705.csv')
 dfAll['DateTime'] = pd.to_datetime(dfAll['DateTime'])
 
 #dfStops=dfAll.groupby(by=['SourceBusStop']).mean()
@@ -35,7 +35,7 @@ dfA = df2.ix[df2.DestinationBusStop == 'Hub Gertak Sanggul'].copy()
 dfB = df2.ix[df2.DestinationBusStop == 'Depo Sg. Nibong'].copy()
 
 # Load file containing bus route coordinates.
-dfRouteS = pd.read_csv(pwd+'BusStopCoordinates-SouthBound.txt')
+dfRouteS = pd.read_csv(pwd+'raw/BusStopCoordinates-SouthBound.txt')
 dfRouteS = dfRouteS[['Latitude', 'Longitude']]
 dfRouteS['Progress'] = dfRouteS.index/len(dfRouteS)
 
@@ -65,7 +65,7 @@ selectedStopCompletion = routeCompletion(dfRouteS, selectedStopLoc['Latitude'], 
 #  dfA.ix[i,'RouteCompleted'] = routeCompletion(dfRouteS, row.Latitude, row.Longitude)
 
 # Read the produced file from commented sectoin above with route progress.
-dfA = pd.read_csv(pwd+'SorthboundAllStops2-201705.csv')
+dfA = pd.read_csv(pwd+'raw/SorthboundAllStops2-201705.csv')
 dfA['DateTime'] = pd.to_datetime(dfA['DateTime'])
 # Select only data before selected stop 
 dfA = dfA[dfA.RouteCompleted <= selectedStopCompletion]
@@ -154,7 +154,7 @@ df['LastArrival'] = df.groupby('BusID').cumcount()
 
 
 # Inport weather data
-dfWeather = pd.read_csv(pwd+'weather/CombinedWeather_20160825-20170213.csv')
+dfWeather = pd.read_csv(pwd+'weather_data/CombinedWeather_20160825-20170213.csv')
 dfWeather['DateTime'] = pd.to_datetime(dfWeather['DateTime'])
 dfWeather['WeatherConditions30minPrior'] = dfWeather['WeatherConditions'].shift(1)
 dfWeather['WeatherConditions60minPrior'] = dfWeather['WeatherConditions'].shift(2)
@@ -173,4 +173,4 @@ df = setColname(df.reset_index(), 0, 'DateTime')
 df = pd.merge_asof(df, dfWeather, on='DateTime')
 
 # Write to file, this is the data used for model training.
-#df.to_csv(pwd + 'data9.csv', index = False)
+df.to_csv(pwd + 'cleaned/data9.csv', index = False)
