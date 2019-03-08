@@ -1,0 +1,1 @@
+# ignore everything in subfolders except named folders (which has their own .gitigore's) and .gitignore
