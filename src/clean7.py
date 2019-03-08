@@ -2,7 +2,7 @@
 """
 Created on Mon Feb 20 22:18:02 2017
 
-@author: Z
+@author: kk
 """
 
 from datetime import datetime, date, time, timedelta
@@ -14,8 +14,7 @@ pd.set_option('display.max_columns', 200)
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
-pwd = 'C:/Users/Z/Dropbox/Homework/bus/new/'
-#pwd = '/Users/Amber/Dropbox/[Homework]/bus/new/'
+pwd = '../data'
 dfAll = pd.read_csv(pwd+'RapidData_Arrival_201705.csv')
 dfAll['DateTime'] = pd.to_datetime(dfAll['DateTime'])
 
@@ -30,7 +29,6 @@ df2 = df1.groupby(by=['DestinationBusStop', 'DateTime', 'SourceBusStop']).first(
 # Raw data is not sorted, so sort by time here. Also remove rows before 8-26 for incomplete days.
 #df2 = df2.ix[df2.DateTime>datetime(2016,8,26)].sort_values('DateTime')
 df2 = df2.ix[df2.DateTime>datetime(2017,2,26)].sort_values('DateTime')
-#df.to_csv('C:\\Users\\Z\\Dropbox\\Homework\\bus\\new\\RapidData_AllClean.csv')
 
 # Separate 2 directions into 2 data frames.
 dfA = df2.ix[df2.DestinationBusStop == 'Hub Gertak Sanggul'].copy()
@@ -65,7 +63,6 @@ selectedStopCompletion = routeCompletion(dfRouteS, selectedStopLoc['Latitude'], 
 #for i,row in dfA.iterrows():
 #  if(i%10000 == 0): print(i)
 #  dfA.ix[i,'RouteCompleted'] = routeCompletion(dfRouteS, row.Latitude, row.Longitude)
-#dfA.to_csv('C:/Users/Z/Dropbox/Homework/bus/new/SorthboundAllStops2-201705.csv', index=False)
 
 # Read the produced file from commented sectoin above with route progress.
 dfA = pd.read_csv(pwd+'SorthboundAllStops2-201705.csv')
